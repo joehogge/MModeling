@@ -71,7 +71,7 @@ n_steps = 5000
 dt = 0.001
 
 x_coord, y_coord, z_coord = get_initial_coordinates()
-x_vel, y_vel, z_vel = get_initial_velocities
+x_vel, y_vel, z_vel = get_initial_velocities()
 
 for i in range(n_steps):
     x_coord, y_coord, y_coord, x_vel, y_vel, z_vel = take_step(x_coord, y_coord, z_coord, x_vel, y_vel, z_vel)
