@@ -4,9 +4,11 @@ Created on Wed Dec 11 09:09:42 2019
 
 @author: Joe
 
-Ths code was adapted from:
-https://gist.github.com/jhjensen2/71bdb95ca0b12e22fa176c86b46e28b5
+Ths code was adapted from the following:
     
+https://gist.github.com/jhjensen2/71bdb95ca0b12e22fa176c86b46e28b5
+https://www.uio.no/studier/emner/matnat/fys/FYS4460/v17/notes/md-2016-python.pdf
+http://nznano.blogspot.com/2017/11/molecular-dynamics-in-python.html
 
 """
 
@@ -63,6 +65,22 @@ def add_frame(xs, ys, zs, i):
     trajectory += str(n_particles) + '\ntitle\n'
     for x, y, z in zip(xs, ys, zs):
         trajectory += ' '.join(['Ar',str(x),str(y),str(z),'0.0\n'])
+        
+def calculate_temperature(vel,box_width,DIM,n_particles):
+    '''
+    Calculates the microscopic temperature from kinetic energy
+    '''
+    
+    kinetic_energy = 0
+    
+    for i in range(n_particles):
+        real_vel = box_width^3 * vel[i,:]
+        kinetic_energy += 0.5 * np.dot(real_vel, real_vel)
+        
+    kinetic_energy_avg = 1.0 * kinetic_energy / n_particles
+    temperature = 2.0 * kinetic_energy_avg / DIM
+    
+    return kinetic_energy_avg, temperature
 
 
 n_particles = 100
